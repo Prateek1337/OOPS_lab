@@ -18,7 +18,7 @@ public class LabMidesemB3 {
             bakeries[i].expiryDate=input.next();
             bakeries[i].companyName=input.next();
         }
-        display(bakeries);
+        display(bakeries,"quantity");
         System.out.println("Enter 3 Personal care Items: id,name,quantity,price,manufactDate , Expiry Date and company name ");
         for(int i=0;i<3;++i){
 
@@ -31,8 +31,8 @@ public class LabMidesemB3 {
             personalCares[i].expiryDate=input.next();
             personalCares[i].companyName=input.next();
         }
-        display(personalCares);
-        System.out.println("Enter 3 Bakery Items: id,name,quantity,price,manufactDate , Expiry Date and company name ");
+        display(personalCares,"quantity");
+        System.out.println("Enter 3 electric products Items: id,name,quantity,price,manufactDate , Expiry Date and company name ");
         for(int i=0;i<3;++i){
            electricProducts[i]=new ElectricProducts();
            electricProducts[i].id=input.next();
@@ -43,8 +43,8 @@ public class LabMidesemB3 {
            electricProducts[i].expiryDate=input.next();
            electricProducts[i].companyName=input.next();
         }
-        display(electricProducts);
-        System.out.println("Enter 3 Bakery Items: id,name,quantity,price,manufactDate , Expiry Date and company name ");
+        display(electricProducts,"quantity");
+        System.out.println("Enter 3 grocery Items: id,name,quantity,price,manufactDate , Expiry Date and company name ");
         for(int i=0;i<3;++i){
            groceries[i]=new Grocery();
            groceries[i].id=input.next();
@@ -55,19 +55,40 @@ public class LabMidesemB3 {
            groceries[i].expiryDate=input.next();
            groceries[i].companyName=input.next();
         }
-        display(groceries);
+        display(groceries,"quantity");
         double [] averageQuantity=new double[4];
         averageQuantity[0]=average(bakeries);
         averageQuantity[1]=average(personalCares);
         averageQuantity[2]=average(electricProducts);
         averageQuantity[3]=average(groceries);
         double maxAverage=0;
+        int maxAverageIdx=0;
         for(int i=0;i<4;++i){
             if(maxAverage<averageQuantity[i]){
                 maxAverage=averageQuantity[i];
+                maxAverageIdx=i;
             }
         }
-
+        if(maxAverageIdx==0) {
+            System.out.println( "\nBakery has  Max average quantiy");
+            sort(bakeries,"amount",0,3);
+            display(bakeries,"amount");
+        }
+        else if(maxAverageIdx==1) {
+            System.out.println( "\npersonal care has  Max average quantiy");
+            sort(personalCares, "amount", 0, 3);
+            display(personalCares,"amount");
+        }
+        else if(maxAverageIdx==2) {
+            System.out.println( "\nelectric product has  Max average quantiy");
+            sort(electricProducts, "amount", 0, 3);
+            display(electricProducts,"amount");
+        }
+        else {
+            System.out.println( "\ngroceries has  Max average quantiy");
+            sort(groceries, "amount", 0, 3);
+            display(groceries,"amount");
+        }
     }
 
     static double average(Product[] products){
@@ -78,8 +99,8 @@ public class LabMidesemB3 {
         quantity=quantity/3;
         return quantity;
     }
-    static void display(Product[] products){
-        sort(products,"quantity",1,3);
+    static void display(Product[] products,String param){
+        sort(products,param,1,3);
         for(int i=0;i<3;++i){
             System.out.println("id="+products[i].id+" "+"name="+products[i].name+" "+"quantity="+products[i].quantity+" "+"price="+products[i].price+" ");
         }
@@ -92,7 +113,7 @@ public class LabMidesemB3 {
             f = cls.getDeclaredField(param);
             for(int i=0;i<n;++i){
                 for(int j=0;j<n-i-1;++j) {
-                    int quantity1  = (int) f.get(products[j]);
+                    int quantity1  = (int) (f.get(products[j]));
                     int quantity2  = (int) f.get(products[j + 1]);
                     if (order == 0) {
                         if (quantity1>quantity2){
@@ -122,8 +143,8 @@ public class LabMidesemB3 {
 
 class Product{
     String id,name;
-    int quantity;
-    double price,amount;
+    int quantity,amount;
+    double price;
     Product(){
         id=null;
         name=null;
@@ -170,7 +191,7 @@ class Product{
         return price;
     }
     public void getProductAmount(){
-        this.amount=this.quantity*this.price;
+        this.amount=  this.quantity*((int) this.price);
     }
 }
 
