@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Lab53 {
 
-    public static void main(String args[]){
+    public static void main(String[] args){
 
         Scanner sc=new Scanner(System.in);
         System.out.println("Enter number of passengers");
@@ -58,7 +58,6 @@ class Passengers extends Travel{
         super(name, startDate, returnDate, place);
         this.age=age;
     }
-
     void display(){
         super.display();
         System.out.println(" age="+age);
