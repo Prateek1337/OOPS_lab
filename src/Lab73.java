@@ -5,8 +5,6 @@ public class Lab73 {
         
         Student73 [] studentList=new Student73[100];
         Scanner input=new Scanner(System.in);
-        Vechile vechile=new Vechile();
-        vechile.regNumber=5;
         int size=0;
         while(true){
             int flag;
